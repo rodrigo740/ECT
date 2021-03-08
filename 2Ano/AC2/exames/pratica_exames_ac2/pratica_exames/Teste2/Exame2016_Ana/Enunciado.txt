@@ -1,0 +1,12 @@
+1)
+a) (2v) ler do switch e meter nos leds de ordem inversa
+b) (2v) ler do switch e meter o valor em hexadecimal no display mais significativo
+2)
+a) ler da adc com interrupçoes e meter no display o valor lido em hexadecimal. frequencia da adc de 10 hz e frequencia refrescamento do display 120hz atraves do timer2.
+b) (4v) repetir a alinea anterior mas meter um sinal no ponto de teste OC1 de 120Hz e duty-cicle de 75%. Medir o valor do dutycycle no osciloscopio. ( tipo o exercicio 3 da parte 2, do guiao6)
+3)(4v)
+uart2 : se carregasse na tecla 'l' lia o valor do switch e era impresso no terminal se era par ou ímpar
+tecla 's' escrever na linha de comandos o nome e numero mecanografico
+tecla 'q' para terminar o programa.
+a uart2 tinha que ser com interrupçoes
+4-(3v) (nao sei o que pedia)”

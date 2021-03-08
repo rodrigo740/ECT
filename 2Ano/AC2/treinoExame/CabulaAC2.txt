@@ -1,0 +1,124 @@
+Configurar uma ADC:
+
+TRISBbits.TRISBx = 1; 		// RBx digital output disconnected
+AD1PCFGbits.PCFGx= 0; 		// RBx configured as analog input (AN4)
+AD1CON1bits.SSRC = 7; 		// Conversion trigger selection bits: in this
+ 							// mode an internal counter ends sampling and starts conversion
+AD1CON1bits.CLRASAM = 1; 	// Stop conversions when the 1st A/D converter
+							// interrupt is generated. At the same time, hardware clears the ASAM bit
+AD1CON3bits.SAMC = 16; 		// Sample time is 16 TAD (TAD = 100 ns)
+AD1CON2bits.SMPI = XX-1; 	// Interrupt is generated after XX samples
+ 							// (replace XX by the desired number of consecutive samples)
+AD1CHSbits.CH0SA = x; 		// replace x by the desired input analog channel (0 to 15)
+AD1CON1bits.ON = 1; 		// Enable A/D converter
+ 							// This must the last command of the A/D configuration sequence
+
+
+Configurar uma ADC como interrupção:
+
+IPC6bits.AD1IP = 2; 		// A/D interrupts priority 
+IEC1bits.AD1IE = 1; 		// A/D interrupts enabled
+IFS1bits.AD1IF = 0; 		// Reset AD1IF flag
+
+AD1CON1bits.ASAM = 1;		// Start conversion
+//while( IFS1bits.AD1IF == 0 );	// Wait while conversion not done (AD1IF == 0) -> descomentar caso queira polling em vez de interrupção 
+
+Interrupt Handler para ADC:
+
+void _int_(27) isr_adc(void)
+{
+    // CODIGO //
+
+    IFS1bits.AD1IF = 0;
+}
+
+O CONTEUDO DA ADC ESTA GUARDADO EM: ADC1BUF0
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+Configurar um Timer(T2):
+
+T2CONbits.TCKPS = 5; 		// 1:32 prescaler (i.e. fout_presc = 625 KHz)
+PR2 = 62499; 				// Fout = 20MHz / (32 * (62499 + 1)) = 10 Hz
+TMR2 = 0; 					// Reset timer T2 count register
+T2CONbits.TON = 1; 			// Enable timer T2 (must be the last command of the timer configuration sequence)
+
+Configurar o Timer para gerar interrupções:
+
+IPC2bits.T2IP = 2; 			// Interrupt priority (must be in range [1..6])
+IEC0bits.T2IE = 1; 			// Enable timer T2 interrupts
+IFS0bits.T2IF = 0; 			// Reset timer T2 interrupt flag
+
+Para usar um timer(T3) com polling basta escrever: while (IFS0bits.T3IF == 0);
+
+----------------------------------------------------------------------------------------------------------------------------------------------------
+
+Configurar uma UART em 4 Passos:
+
+1- Configurar o gerador de baudrate de acordo com a taxa de transmissão/receção
+	pretendida (registo UxBRG e bit BRGH do registo UxMODE)
+
+2- Configurar os parâmetros da trama: dimensão da palavra a transmitir (número de data bits) 
+	e tipo de paridade (bits PDSEL<1:0> do registo UxMODE), número de stop bits (bit STSEL do registo UxMODE).
+
+3- Ativar os módulos de transmissão e receção (bits UTXEN e URXEN do registo UxSTA).
+
+4- Ativar a UART (bit ON do registo UxMODE). 
+
+// Para enviar informação para a FIFO é só alterar o registo UxTXREG - o x representa o numero da UART(1-6)
+
+// 1 - Configure BaudRate Generator
+U1BRG = (PBCLK + 8 * 115200) / (16 * 115200) -1;
+
+// 2 – Configure number of data bits, parity and number of stop bits (see U1MODE register)
+U1MODEbits.BRGH = 0;            //divisao por 16
+U1MODEbits.PDSEL = 0;   	//8 bits sem paridade
+U1MODEbits.STSEL = 0;  		//1 stop bit
+
+// 3 – Enable the trasmitter and receiver modules (see register U1STA)
+U1STAbits.UTXEN = 1;    	//transmitter enable
+U1STAbits.URXEN = 1;    	//receiver enable
+
+// 4 – Enable UART1 (see register U1MODE)
+U1MODEbits.ON = 1;
+
+Transmissao por Polling:
+
+//A transmissão é feita caracter a caracter
+void putc(char byte2send)
+{
+ // wait while U1STAbits.UTXBF == 1
+ // Copy byte2send to the UxTXREG register
+}
+
+Receção por Polling:
+
+//A receção é feita caracter a caracter
+char getc(void)
+{
+  // If OERR == 1 then reset OERR 
+  // Wait while URXDA == 0
+  // Return U1RXREG
+} 
+
+Configuração da UART com interrupções:
+
+EnableInterrupts();
+
+void _int_(VECTOR_UART1) isr_uart1(void)
+{
+	putc(U1RXREG);
+	// Clear UART1 rx interrupt flag
+} 
+
+
+
+
+
+
+
+
+
+
+
+

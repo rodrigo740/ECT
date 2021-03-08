@@ -1,0 +1,55 @@
+Exercícios inventados
+
+1) Ler o valor de 4 Dip Switches e imprimir na consola. Lidos a uma frequencia de 100 Hz, escritos a 1 hz.
+
+2) Imprimir o valor através da UART2 - 115200 bps, sem paridade, 8 data bits, 1 stop bit, divisão por 16
+
+3) a) Implementar exercicio anterior usando Timer para frequencias, usando interrupçoes.
+
+3)b) Se for lido o carater 'r', guardar o valor na memória EEPROM. Se for lido 'w', guarda um carater lido na linha de comandos.
+
+4) Visualizar no oscil. um sinal com 50 hz e duty-cycle de 50%. Alterar o duty cycle utilizando o potenciómetro.
+
+5) a) Contador através da UART2 (delay de 250ms, mas só mostra de 1 em 1 s)
+
+5) b) Se switch 4 estiver on, enviar para display. Caso contrário, guardar na primeira posição de memória o valor.
+
+6) Programa que envie para o porto série o valor em hexa dos dip-switches 1 a 4 a um ritmo de 2 hz, por polling.
+
+7) Alterar o programa de maneira a que este some, em modulo 16, a um ritmo de 2 hz, um valor recebido de 0 a 9 na porta série ao valor lido nos switches. O valor deve ser enviado para o display de 7 seg da esquerda, em hexadecimal.
+
+8) Altere o programa de maneira a que, ao premir 'p', o display pisca a um ritmo de 2 hz (0.5s ON, 0.5s OFF). se 'p' for premido novamente deixa de piscar, e assim sucessivamente.
+
+9) Altere o programa anterior de maneira a efetuar temporização (1/2 segundo) com o timer 3, com interrupções.
+
+10) Imprimir o valor da temperatura nos displays, com uma frequencia de 1 Hz, usando timers e interrupções.
+
+11) Implementar device-driver com interrupções.
+
+12) Apresentar valor nos displays:
+	Se switch = 00-> Valor do potenciómetro
+	Se switch = 01-> Valor da temperatura
+	Se switch = 10-> Valor lido da Uart pelo teclado.  Se for 's', mostra os resultados.
+	Se for 'r', faz reset dos valores.
+	Se switch = 11-> Usar o valor lido do potenciómetro para regular o duty-cycle de uma onda com frequência 100 Hz. Displays sem mostrar nada.
+	
+	Ao mesmo tempo, armazenar todos os valores num buffer de 64 posições na memória, onde a posição 00 serve para guardar o número de valores e a posição 01 o endereço do valor seguinte, a uma frequência de 1 Hz.
+
+	Com um frequência de refrescamento de 100 Hz.
+
+13) Configurar a Uart com interrupções na receção. Escrever nos leds o valor recebido do teclado.
+
+14) Configurar UART2 e fazer o seguinte, sem usar syscalls:
+- Imprimir nome e nMec
+- Caso seja inserido o caracter 'space', mandar o valor lido nos portos RB0 a RB3 como argumento a uma função para imprimir esse mesmo valor nos displays (essa função já estava implementada)
+- Caso seja inserido outro caracter, imprimir "Carácter inválido".
+
+15) Imprime “Futebol Clube do Porto" sem syscall’s:
+Num contador de 4 bits, se introduzir '+' deve incrementar no contador, se introduzir '-' deve decrementar um valor.
+Quando o contador atingir o valor máximo ou mínimo, 15 e 0, respectivamente, deve escrever no ecrã (sem syscalls) "MAX" ou "MIN" e não pode baixar para baixo de 0 ou aumentar para cima de 15.
+
+16) Usando uma variável percentage_duty de 0 a 100 implemente um duty cycle no timer B de 20Hz. Que incrementa com + 5, e -5 usando a UART com interrupção de recepção.
+Usando o dipswitch tendo a combinação binária 11 deve fazer freeze do valor e com outros deve deixar mudar o valor do dutycycle o OCR.
+Usando os leds deve indicar qual o valor em barra de leds do duty cycle (perecntage), sendo 0 tudo apagado e 100 tudo ligado.
+Usando a ADC deve activar para o valor máximo os leds todos a piscar com o timer do tipo A a 25Hz.
+Nos displays deve indicar a percentagem da ADC.

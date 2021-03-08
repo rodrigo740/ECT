@@ -1,0 +1,50 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf340
+{\fonttbl\f0\fnil\fcharset0 HelveticaNeue;}
+{\colortbl;\red255\green255\blue255;}
+{\*\listtable{\list\listtemplateid1\listhybrid{\listlevel\levelnfc0\levelnfcn0\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{decimal\}.}{\leveltext\leveltemplateid1\'02\'00.;}{\levelnumbers\'01;}\fi-360\li720\lin720 }{\listname ;}\listid1}}
+{\*\listoverridetable{\listoverride\listid1\listoverridecount0\ls1}}
+\paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\deftab720
+\pard\pardeftab720\sl280\partightenfactor0
+
+\f0\fs24 \cf0 \expnd0\expndtw0\kerning0
+Teste AC2:\
+\
+1 pergunta - 5 valores - ASSEMBLY -> 2 al\'edneas\
+\
+portos de entrada: DS/TECLADO\
+portos de sa\'edda: LEDS/MONITOR\
+\
+2 pergunta - 15 valores - C\
+\
+manipula\'e7\'e3o de entrada e sa\'edda\
+displays\
+ADC\
+interrup\'e7\'f5es\
+\
+Material:\
+guia\
+tabela instru\'e7\'f5es\
+datasheet\
+esquema da placa\
+\
+\pard\pardeftab720\sl280\sa240\partightenfactor0
+\cf0 TESTE 1 (9h):\uc0\u8232 Assembly:\u8232 1: contador bin\'e1rio de 4 bits decrescente a 1Hz\u8232 2: usando o 1\'ba exercicio, sexe 'i' premido, contador come\'e7a com o valor colocado no dipswitch\
+C:\uc0\u8232 1: usando a ADC, imprimir no display da direita valor em hexadecimal (escala de 0 a F), refresh a 50Hz (polling)\u8232 2: fazer "sensor de temperatura" entre 0 e 50\'baC, colocar nos displays com freq de convers\'e3o de 50Hz e de refresh de 100Hz\u8232 3: igual ao 2\'ba, usar interrup\'e7\'f5es\
+\
+\pard\pardeftab720\sl280\partightenfactor0
+\cf0 Primeiro exerc\'edcio:\
+\
+contador de gray - percorrer o array - c\'f3digos dados em hex - ascendente frei 2Hz\
+segunda al\'ednea: se \'91u\'92 contador de gray ascendente, \'91d\'92 deve ser descendente\
+\
+Segundo exerc\'edcio:\
+\
+\pard\tx220\tx720\pardeftab720\li720\fi-720\sl280\partightenfactor0
+\ls1\ilvl0\cf0 \kerning1\expnd0\expndtw0 {\listtext	1.	}\expnd0\expndtw0\kerning0
+Ler da ADC o valor e mostrar no display da esquerda, de 0 a 15 por polling, freq 10 Hz\
+\ls1\ilvl0\kerning1\expnd0\expndtw0 {\listtext	2.	}\expnd0\expndtw0\kerning0
+Display da esquerda, o tempo em segundos que a ADC tinha registado uma Tens\'e3o superar a 3.3/2, f = 10Hz, f = 10Hz de refresh\
+\ls1\ilvl0\kerning1\expnd0\expndtw0 {\listtext	3.	}\expnd0\expndtw0\kerning0
+a ou b por interrup\'e7\'e3o\
+}
